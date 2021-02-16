@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, JourneyForm
 from .models import *
 from django.db.models import Sum
 
@@ -60,6 +60,43 @@ def home(request):
         duration = i.duration_hours * 60 + i.duration_minutes
         total_emissions += duration * i.transportation.carbon_price
 
-    context = {'journeys': journeys, 'total_emissions': total_emissions}
+    context = {'journeys': journeys, 'total_emissions': round(total_emissions, 2)}
     return render(request, 'accounts/dashboard.html', context)
 
+@login_required(login_url='login')
+def createJourney(request):
+    form = JourneyForm()
+    if request.method == 'POST':
+        form = JourneyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'accounts/journey_form.html', context)
+
+@login_required(login_url='login')
+def updateJourney(request, pk):
+    journey = Journey.objects.get(id=pk)
+    form = JourneyForm(instance=journey)
+
+    if request.method == 'POST':
+        form = JourneyForm(request.POST, instance=journey)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'accounts/journey_form.html', context)
+
+
+def deleteJourney(request, pk):
+    journey = Journey.objects.get(id=pk)
+
+    if request.method == 'POST':
+        journey.delete()
+        return redirect('home')
+        
+    context = {'item': journey}
+    return render(request, 'accounts/delete.html', context)
