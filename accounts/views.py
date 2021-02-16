@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CreateUserForm
-
+from .forms import CreateUserForm, JourneyForm
+from .models import *
+from django.db.models import Sum
 
 # Create your views here.
 def registerPage(request):
@@ -50,4 +51,15 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    return render(request, 'accounts/dashboard.html')
+
+    journeys = Journey.objects.all()
+
+
+    total_emissions = 0
+    for i in journeys:
+        duration = i.duration_hours * 60 + i.duration_minutes
+        total_emissions += duration * i.transportation.carbon_price
+
+    context = {'journeys': journeys, 'total_emissions': total_emissions}
+    return render(request, 'accounts/dashboard.html', context)
+

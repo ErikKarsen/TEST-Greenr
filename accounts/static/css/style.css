@@ -271,7 +271,7 @@ header{
         justify-content: flex-start;
         opacity: 0;
         transform: translateY(15px);
-    } */
+    }
 }
 
 /* Lines 280 - 493 Contain Styling for Login/Registration */
@@ -507,4 +507,52 @@ label.valid:after {
   content: '';
   display: block;
   padding-bottom: 100%;
+}
+
+.content-table {
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.content-table thead tr {
+    background-color: #00793F;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.split-container {
+    display: flex;
+}
+
+.table-container {
+    width: 45%;
+    background: #fff;
+    margin: 0 auto;
+    box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    border-radius: 20px; }
+
+
+
+@media (max-width: 920px){
+    .split-container {
+        flex-direction: column;
+        justify-content: center; }
+
+    .table-container {
+        width: 100%;
+        border-radius: 20px;
+        align-items: center;
+        padding: 20px }
+
+}
+
+.table-title {
+    padding-left: 20px;
 }
