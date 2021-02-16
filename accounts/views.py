@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CreateUserForm, JourneyForm
+from .forms import CreateUserForm
 from .models import *
 from django.db.models import Sum
 
