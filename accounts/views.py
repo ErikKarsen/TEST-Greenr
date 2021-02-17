@@ -69,11 +69,12 @@ def createJourney(request):
     if request.method == 'POST':
         form = JourneyForm(request.POST)
         if form.is_valid():
-            form.save()
-            
+            stock = form.save(commit=False)
+            stock.customer = Customer.objects.get(user=request.user.id)
+            stock.save()
             return redirect('home')
 
-    context = {'form': form}
+    context = {'form': form, }
     return render(request, 'accounts/journey_form.html', context)
 
 @login_required(login_url='login')
@@ -90,7 +91,7 @@ def updateJourney(request, pk):
     context = {'form': form}
     return render(request, 'accounts/journey_form.html', context)
 
-
+@login_required(login_url='login')
 def deleteJourney(request, pk):
     journey = Journey.objects.get(id=pk)
 
