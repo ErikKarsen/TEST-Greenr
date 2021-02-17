@@ -74,7 +74,7 @@ def createJourney(request):
             stock.save()
             return redirect('home')
 
-    context = {'form': form, }
+    context = {'form': form}
     return render(request, 'accounts/journey_form.html', context)
 
 @login_required(login_url='login')
