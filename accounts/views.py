@@ -17,10 +17,17 @@ def registerPage(request):
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'Account for ' + user + ' was successfully created.')
+                user = form.save()
+                username = form.cleaned_data.get('username')
+
+                Customer.objects.create(
+                    user=user,
+                    name=user.username
+                )
+
+                messages.success(request, 'Account for ' + username + ' was successfully created.')
                 return redirect('login')
+                
 
 
         context = {'form': form}
@@ -52,7 +59,7 @@ def logoutUser(request):
 @login_required(login_url='login')
 def home(request):
 
-    journeys = Journey.objects.all()
+    journeys = request.user.customer.journey_set.all()
 
 
     total_emissions = 0
