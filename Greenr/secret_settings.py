@@ -24,13 +24,12 @@ AWS_STORAGE_BUCKET_NAME = 'project-greenr-bucket'
 boto_kwargs = {
     "aws_access_key_id": getenv("AWS_ACCESS_KEY_ID"),
     "aws_secret_access_key": getenv("AWS_SECRET_ACCESS_KEY"),
-    "region": "eu-west-2",
     "profile_name": "projectgreenr"
 }
 
 
 def decrypt(secret, **boto_kwargs):
-    client = boto3.Session(**boto_kwargs).client("kms")
+    client = boto3.Session(**boto_kwargs).client("kms",  region_name='eu-west-2')
 
     plaintext = client.decrypt(
         CiphertextBlob=bytes(base64.b64decode(secret))
