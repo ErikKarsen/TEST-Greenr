@@ -25,13 +25,13 @@ boto_kwargs = {
     "aws_access_key_id": getenv("AWS_ACCESS_KEY_ID"),
     "aws_secret_access_key": getenv("AWS_SECRET_ACCESS_KEY"),
     "region_name": getenv("AWS_REGION"),
+    "profile_name": "projectgreenr"
 }
 
 
 def decrypt(secret, **boto_kwargs):
-    session = boto3.session.Session(profile_name='projectgreenr')
-    client = session.client('kms')
-    
+    client = boto3.Session(**boto_kwargs).client("kms")
+
     plaintext = client.decrypt(
         CiphertextBlob=bytes(base64.b64decode(secret))
     )
