@@ -24,7 +24,7 @@ AWS_STORAGE_BUCKET_NAME = 'project-greenr-bucket'
 boto_kwargs = {
     "aws_access_key_id": getenv("AWS_ACCESS_KEY_ID"),
     "aws_secret_access_key": getenv("AWS_SECRET_ACCESS_KEY"),
-    "region_name": "eu-west-2",
+    "region": "eu-west-2",
     "profile_name": "projectgreenr"
 }
 
