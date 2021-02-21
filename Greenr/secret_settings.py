@@ -1,5 +1,6 @@
 import boto3
 import base64
+from os import getenv
 
 #DJANGO SECRETS
 SECRET_KEY = 'AQICAHjNFeZuqPl8K37ILC2+U1n7RRy5mVWwGjhe9xZq7wEJaQE+Fx5fo4DEQs+WyQkdBHXMAAAAkjCBjwYJKoZIhvcNAQcGoIGBMH8CAQAwegYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAyDf/undVGWvMrXXHICARCATWkHh14mMl0ZcJjxBxWjlE0krhcdLtEAPLuAhNVYvbO2R1zF6DG2GeVW+4ecjAM523/9oOeoJl+JbyK5OVsFrj/koXqxKvR63DlgihQC'
@@ -20,7 +21,14 @@ AWS_SECRET_ACCESS_KEY = 'AQICAHjNFeZuqPl8K37ILC2+U1n7RRy5mVWwGjhe9xZq7wEJaQFiY7V
 AWS_STORAGE_BUCKET_NAME = 'project-greenr-bucket'
 
 
-def decrypt(secret):
+boto_kwargs = {
+    "aws_access_key_id": getenv("AWS_ACCESS_KEY_ID"),
+    "aws_secret_access_key": getenv("AWS_SECRET_ACCESS_KEY"),
+    "region_name": getenv("AWS_REGION"),
+}
+
+
+def decrypt(secret, **boto_kwargs):
     session = boto3.session.Session(profile_name='projectgreenr')
     client = session.client('kms')
     
