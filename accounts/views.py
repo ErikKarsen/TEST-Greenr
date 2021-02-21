@@ -71,6 +71,12 @@ def home(request):
     return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
+def userPage(request):
+
+    context = {}
+    return render(request, 'accounts/user.html', context)
+
+@login_required(login_url='login')
 def createJourney(request):
     form = JourneyForm()
     if request.method == 'POST':
