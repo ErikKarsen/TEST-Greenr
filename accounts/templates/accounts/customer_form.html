@@ -6,23 +6,31 @@
 <div class="main">
 
     <section class="create-journey">
+
+        {% for message in messages %}
+        <p class="signup-image-link">{{message}}</p>
+        {% endfor %}
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">
-                    <h2 class="form-title">Update Profile</h2>
+                    <h2 class="form-title">Edit Profile</h2>
                     <form method="POST" enctype="multipart/form-data" class="customer-form" id="customer-form">
                         {% csrf_token %}
                         <div class="form-group">
-                            <p>Name:</p>
-                            {{form.name}}
+                            <p>First Name:</p>
+                            {{form.first_name}}
                         </div>
                         <div class="form-group">
-                            <p>Phone:</p>
-                            {{form.phone}}
+                            <p>Last Name:</p>
+                            {{form.last_name}}
                         </div>
                         <div class="form-group">
-                            <p>Email:</p>
-                            {{form.email}}
+                            <p>Title:</p>
+                            {{form.title}}
+                        </div>
+                        <div class="form-group">
+                            <p>Bio:</p>
+                            {{form.description}}
                         </div>
                         <div class="form-group">
                             <p>Profile Picture:</p>

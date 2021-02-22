@@ -22,7 +22,8 @@ def registerPage(request):
 
                 Customer.objects.create(
                     user=user,
-                    name=user.username
+                    username=user.username,
+                    email=user.email
                 )
 
                 messages.success(request, 'Account for ' + username + ' was successfully created.')
@@ -45,7 +46,7 @@ def loginPage(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('update_customer')
             else:
                 messages.info(request, 'Invalid Username or Password')
                 
@@ -86,7 +87,7 @@ def updateCustomer(request):
         if form.is_valid():
             form.save()
             return redirect('user_page')
-
+        print(form.errors)
 
     context = {'form': form}
     return render(request, 'accounts/customer_form.html', context)

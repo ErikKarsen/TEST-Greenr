@@ -10,7 +10,7 @@
             <div class="image-container">
                         <img src="{{request.user.customer.profile_pic.url}}" />
             </div>
-            <h3>{{request.user.customer.name}}</h3>
+            <h3>{{request.user.customer.first_name}} {{request.user.customer.last_name}}</h3>
 
             <div class="edit-vector">
                 <a href="{% url 'update_customer' %}" class="edit-link"><img src="{% static 'images/edit-icon.png' %}" alt="edit"></a>
@@ -18,7 +18,7 @@
         </div>
         <div class="middle-container">
             <div>
-                <h4>Front-end Developer</h4>
+                <h4>{{request.user.customer.title}}</h4>
                 <p>Greater London Area</p>
             </div>
             <div>
@@ -28,7 +28,7 @@
         </div>
         <div class="lower-container">
             <div id="profile_description">
-                <p>sodales accumsan ligula. Aenean sed diam tristique, fermentum mi nec, ornare arch.</p>
+                <p>{{request.user.customer.description}}</p>
             </div>
             <div id="profile_events">
                 <h2>0</h2>
