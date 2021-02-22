@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import *
+from .forms import CreateUserForm, JourneyForm
 from .models import *
 from django.db.models import Sum
 
@@ -22,8 +22,7 @@ def registerPage(request):
 
                 Customer.objects.create(
                     user=user,
-                    username=user.username,
-                    email=user.email
+                    name=user.username
                 )
 
                 messages.success(request, 'Account for ' + username + ' was successfully created.')
@@ -46,7 +45,7 @@ def loginPage(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('update_customer')
+                return redirect('home')
             else:
                 messages.info(request, 'Invalid Username or Password')
                 
@@ -71,27 +70,6 @@ def home(request):
     context = {'journeys': journeys, 'total_emissions': round(total_emissions, 2)}
     return render(request, 'accounts/dashboard.html', context)
 
-@login_required(login_url='login')
-def userPage(request):
-
-    context = {}
-    return render(request, 'accounts/user.html', context)
-
-@login_required(login_url='login')
-def updateCustomer(request):
-    customer = request.user.customer
-    form = CustomerForm(instance=customer)
-
-    if request.method == 'POST':
-        form = CustomerForm(request.POST, request.FILES, instance=customer)
-        if form.is_valid():
-            form.save()
-            return redirect('user_page')
-        print(form.errors)
-
-    context = {'form': form}
-    return render(request, 'accounts/customer_form.html', context)
-    
 @login_required(login_url='login')
 def createJourney(request):
     form = JourneyForm()
