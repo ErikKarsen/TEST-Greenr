@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('user/', views.userPage, name='user_page'),
+    path('update_customer/', views.updateCustomer, name='update_customer'),
 
 
     path('create_journey', views.createJourney, name='create_journey'),

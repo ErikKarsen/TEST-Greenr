@@ -10,10 +10,10 @@
             <div class="image-container">
                         <img src="{{request.user.customer.profile_pic.url}}" />
             </div>
-            <h3>Alaina Wick</h3>
+            <h3>{{request.user.customer.name}}</h3>
 
             <div class="edit-vector">
-                <a href="" class="edit-link"><img src="{% static 'images/edit-icon.png' %}" alt="edit"></a>
+                <a href="{% url 'update_customer' %}" class="edit-link"><img src="{% static 'images/edit-icon.png' %}" alt="edit"></a>
             </div>
         </div>
         <div class="middle-container">

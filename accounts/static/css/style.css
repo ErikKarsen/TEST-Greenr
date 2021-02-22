@@ -743,3 +743,7 @@ label.valid:after {
 #profile_events{
     text-align: center;
 }
+
+#update_image{
+    transform: translate(0px,0px);
+}

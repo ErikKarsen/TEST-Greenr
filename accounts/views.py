@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CreateUserForm, JourneyForm
+from .forms import *
 from .models import *
 from django.db.models import Sum
 
@@ -75,6 +75,21 @@ def userPage(request):
 
     context = {}
     return render(request, 'accounts/user.html', context)
+
+@login_required(login_url='login')
+def updateCustomer(request):
+    customer = request.user.customer
+    form = CustomerForm(instance=customer)
+    
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('user_page')
+
+
+    context = {'form': form}
+    return render(request, 'accounts/customer_form.html', context)
 
 @login_required(login_url='login')
 def createJourney(request):
