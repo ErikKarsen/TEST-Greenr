@@ -644,8 +644,9 @@ label.valid:after {
 
 .upper-container{
     height: 150px;
-    background: green;
     border-radius: 20px;
+    background: rgb(29,237,29);
+    background: linear-gradient(90deg, rgba(29,237,29,1) 0%, rgba(17,193,17,1) 25%, rgba(0,128,0,1) 100%);
 }
 
 .upper-container h3 {
